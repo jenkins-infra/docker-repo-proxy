@@ -13,21 +13,21 @@ Start a local Docker container (running in background) based on this image with:
 docker run --rm --name local-artifact-cacher -p 80:80 --detach jenkinssciinfra/repo-proxy # should add a tag in production
 ----
 
-Cached object should return 200 with HEADER 'X-Cache-Status' set to 'HIT' or 'MISS'
+Cached object should return a status code `200` with HEADER `X-Cache-Status` set to `HIT` or `MISS`
 
 [source,bash]
 ----
 curl -I http://localhost/releases/cf/pgmann/plugins/url-auth-sso/1.0/url-auth-sso-1.0-javadoc.jar
 ----
 
-Snapshot artifacts shouldn't be cached and so return 200 without HEADER 'X-Cache-Status'
+Snapshot artifacts shouldn't be cached and thus return a status code `200` without HEADER `X-Cache-Status`
 
 [source,bash]
 ----
 curl -I http://localhost/snapshots/jenkins/repository/1.1-SNAPSHOT/repository-1.1-20140112.102452-1-javadoc.jar
 ----
 
-maven-metadata.xml object should return 200 without HEADER 'X-Cache-Status'
+maven-metadata.xml object should return a status code `200` without HEADER `X-Cache-Status`
 
 [source,bash]
 --
@@ -36,14 +36,14 @@ curl -I http://localhost/snapshots/com/deveo/plugins/deveo/maven-metadata.xml
 
 
 [IMPORTANT]
-All requests should return 200 OK
+All requests should return a status code `200` "OK"
 
 [IMPORTANT]
 --
-Cached requests contain HEADER 'X-Cache-Status':
+Cached requests contain HEADER `X-Cache-Status` set to:
 
-* Set to HIT if response get from cache
-* Set to MISS if response didn't get from cache
+* `HIT` if it got its response from cache
+* `MISS` if it didn't got its response from cache
 --
 
 == Contribute
