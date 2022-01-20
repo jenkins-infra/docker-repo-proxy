@@ -6,7 +6,7 @@ This repository contains everything needed to build a docker image for caching a
 
 == Running the service
 
-Start a local Docker container (in background) based on this image with:
+Start a local Docker container (running in background) based on this image with:
 
 [source,bash]
 ----
