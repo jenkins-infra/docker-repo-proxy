@@ -1,1 +1,5 @@
-parallelDockerUpdatecli([imageName: 'repo-proxy', rebuildImageOnPeriodicJob: false])
+parallelDockerUpdatecli([
+  imageName: 'repo-proxy',
+  rebuildImageOnPeriodicJob: false,
+  containerMemory: '256Mi', // 128 (default) is not enough and would be OOMkilled because of the amount of git tags retrieved for nginx
+])
