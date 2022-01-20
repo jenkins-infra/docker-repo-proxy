@@ -1,0 +1,1 @@
+parallelDockerUpdatecli([imageName: 'repo-proxy', rebuildImageOnPeriodicJob: false])

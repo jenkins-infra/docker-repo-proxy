@@ -1,0 +1,63 @@
+title: Bump nginx:stable docker image version
+
+scms:
+  default:
+    kind: github
+    spec:
+      user: "{{ .github.user }}"
+      email: "{{ .github.email }}"
+      owner: "{{ .github.owner }}"
+      repository: "{{ .github.repository }}"
+      token: "{{ requiredEnv .github.token }}"
+      username: "{{ .github.username }}"
+      branch: "{{ .github.branch }}"
+  nginxGithubMirror:
+    kind: git
+    spec:
+      url: "https://github.com/nginx/nginx"
+      branch: "master"
+
+sources:
+  latestRelease:
+    name: Get latest stable version of nginx
+    kind: gitTag
+    scmID: nginxGithubMirror
+    spec:
+      versionFilter:
+        kind: regex
+        ## Nginx stable version have the minor digit as an even number
+        pattern: 'release-(\d+)\.(\d*[0|2|4|6|8])\.(\d+)'
+    transformers:
+      - trimPrefix: "release-"
+
+conditions:
+  checkDockerImagePublished:
+    name: "Test nginx:<latest_version> docker image tag"
+    kind: dockerImage
+    sourceID: latestRelease
+    spec:
+      image: "nginx"
+      architecture: amd64
+      # tag comes from the source input value
+
+targets:
+  updateDockerfile:
+    name: "Update nginx stable docker image version for reports chart"
+    kind: dockerfile
+    spec:
+      file: Dockerfile
+      instruction:
+        keyword: FROM
+        matcher: nginx
+    scmID: default
+
+pullrequests:
+  default:
+    kind: github
+    scmID: default
+    targets:
+      - updateDockerfile
+    spec:
+      labels:
+        - dependencies
+        - nginx
