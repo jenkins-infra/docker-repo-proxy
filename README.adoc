@@ -1,6 +1,6 @@
 = docker-packaging
 
-image:https://img.shields.io/docker/pulls/jenkinsciinfra/repo-proxy?label=jenkinsciinfra%repo-proxy&logo=docker&logoColor=white[link="https://hub.docker.com/r/jenkinsciinfra/repo-proxy"]
+image:https://img.shields.io/docker/pulls/jenkinsciinfra/repo-proxy?label=jenkinsciinfra%2Frepo-proxy&logo=docker&logoColor=white[link="https://hub.docker.com/r/jenkinsciinfra/repo-proxy"]
 
 This repository contains everything needed to build a docker image for caching artefacts from repo.jenkins-ci.org repository to accelerate builds.
 
@@ -10,7 +10,7 @@ Start a local Docker container (running in background) based on this image with:
 
 [source,bash]
 ----
-docker run --rm --name local-artifact-cacher -p 80:80 --detach jenkinssciinfra/repo-proxy # should add a tag in production
+docker run --rm --name local-artifact-cacher -p 80:80 --detach jenkinsciinfra/repo-proxy # should add a tag in production
 ----
 
 Cached object should return a status code `200` with HEADER `X-Cache-Status` set to `HIT` or `MISS`
