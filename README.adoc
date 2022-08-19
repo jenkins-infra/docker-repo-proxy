@@ -1,5 +1,9 @@
 = docker-packaging
 
+== Archival notice
+
+We don't need a custom nginx image for caching artefacts, see more here: https://github.com/jenkins-infra/helpdesk/issues/2752#issuecomment-1220727690
+
 image:https://img.shields.io/docker/pulls/jenkinsciinfra/repo-proxy?label=jenkinsciinfra%2Frepo-proxy&logo=docker&logoColor=white[link="https://hub.docker.com/r/jenkinsciinfra/repo-proxy"]
 
 This repository contains everything needed to build a docker image for caching artefacts from repo.jenkins-ci.org repository to accelerate builds.
